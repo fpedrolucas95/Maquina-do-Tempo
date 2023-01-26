@@ -62,14 +62,15 @@
                 $("#result").html("Por favor, insira uma URL válida.");
                 return;
             }
-            if (!/^https?:\/\//.test(url)) {
-                $("#result").html("Por favor, insira uma URL válida, incluindo o protocolo http(s).");
-                return;
+            if (!/^(http|https|www)/.test(url)) {
+                url = "http://" + url;
             }
             if (!year) {
                 $("#result").html("Por favor, selecione um ano.");
                 return;
             }
+            //Exibir o pre-loader
+            $("#result").html("<div class='pre-loader'><div class='loader'></div></div>");
 
             // Use a API Wayback Machine da Internet Archive para pesquisar a URL no ano especificado
             var apiUrl = "http://archive.org/wayback/available?url=" + url + "&timestamp=" + year +
