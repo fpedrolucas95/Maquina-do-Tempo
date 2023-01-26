@@ -17,6 +17,11 @@
 
 <p>Este projeto é uma máquina do tempo virtual que permite que você viaje através da história da internet. Com ele, você pode inserir um URL e selecionar um ano específico e o projeto buscará esse site no arquivo do Internet Archive e o exibirá como ele era no ano selecionado.<p> Imagine poder ver como o Google, Facebook ou mesmo o seu próprio site se pareciam há anos atrás.</p>
 
+<div style="text-align:center;">
+  <img src="https://github.com/fpedrolucas95/Maquina-do-Tempo/blob/main/img/imagem-1.png" alt="A imagem mostra o projeto exibindo o site zelda.com.br como era em 2006.">
+  <p>A imagem mostra o projeto exibindo o site zelda.com.br como era em 2006.</p>
+</div>
+
 <h2>Como usar</h2>
 <ol>
   <li>Faça o download do projeto ou clone o repositório</li>
