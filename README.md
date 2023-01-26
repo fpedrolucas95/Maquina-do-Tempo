@@ -42,4 +42,4 @@
 </ul>
 
 <h2>Licença</h2>
-<p>Este projeto está licenciado sob a licença GPL-3, o que significa que ele é livre para ser usado, modificado e distribuído. Consulte o arquivo <a href="LICENSE">LICENSE</a> para obter mais detalhes.</p><p> Qualquer contribuição é bem-vinda e encorajada.
+<p>Este projeto está licenciado sob a licença GPL-3, o que significa que ele é livre para ser usado, modificado e distribuído, qualquer contribuição é bem-vinda e encorajada. Consulte o arquivo <a href="LICENSE">LICENSE</a> para obter mais detalhes.</p>
