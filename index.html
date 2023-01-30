@@ -53,43 +53,68 @@
         $("form").submit(function (event) {
             event.preventDefault();
 
-            // Obtenha a URL e o ano do formulário
-            var url = $("#url").val();
-            var year = $("#year").val();
+            // Valida a URL e o ano fornecidos pelo usuário
+            var url = validateUrl($("#url").val());
+            var year = validateYear($("#year").val());
 
-            // Verifique se a URL e o ano são válidos
+            // Verifica se a URL e o ano são válidos
             if (!url) {
-                $("#result").html("Por favor, insira uma URL válida.");
+                displayResult("Por favor, insira uma URL válida.");
                 return;
+            }
+            if (!year) {
+                displayResult("Por favor, selecione um ano.");
+                return;
+            }
+
+            // Exibe mensagem de progresso para o usuário
+            displayResult("<div class='pre-loader'><div class='loader'></div>Viajando no tempo...</div>");
+
+            // Realiza a pesquisa da API Wayback Machine da Internet Archive
+            searchSnapshot(url, year);
+        });
+
+        // Valida a URL fornecida pelo usuário
+        function validateUrl(url) {
+            if (!url) {
+                return false;
             }
             if (!/^(http|https|www)/.test(url)) {
                 url = "http://" + url;
             }
-            if (!year) {
-                $("#result").html("Por favor, selecione um ano.");
-                return;
-            }
-            //Exibir o pre-loader
-            $("#result").html("<div class='pre-loader'><div class='loader'></div></div>");
+            return url;
+        }
 
-            // Use a API Wayback Machine da Internet Archive para pesquisar a URL no ano especificado
-            var apiUrl = "http://archive.org/wayback/available?url=" + url + "&timestamp=" + year +
-                "0101000000";
+        // Valida o ano fornecido pelo usuário
+        function validateYear(year) {
+            if (!year) {
+                return false;
+            }
+            return year;
+        }
+
+        // Exibe resultados da pesquisa na página
+        function displayResult(html) {
+            $("#result").html(html);
+        }
+
+        // Realiza a pesquisa da API Wayback Machine da Internet Archive
+        function searchSnapshot(url, year) {
+            var apiUrl = "http://archive.org/wayback/available?url=" + url + "&timestamp=" + year + "0101000000";
             $.getJSON(apiUrl, function (data) {
                 if (data.archived_snapshots.closest) {
                     var archivedUrl = data.archived_snapshots.closest.url;
-                    // Exiba o URL arquivado em um iframe
-                    $("#result").html("<iframe src='" + archivedUrl + "'></iframe>");
+                    displayResult("<iframe src='" + archivedUrl + "'></iframe>");
                 } else {
-                    $("#result").html("Nenhum snapshot encontrado para a URL e ano especificados.");
+                    displayResult("Nenhum snapshot encontrado para a URL e ano especificados.");
                 }
             }).fail(function (jqXHR, textStatus, errorThrown) {
-                if (jqXHR.status == 404) {
-                    $("#result").html("Nenhum snapshot encontrado para a URL e ano especificados.");
-                }
+                // Trata erros inesperados durante a pesquisa da API
+                displayResult("Erro: " + errorThrown + ". Por favor, tente novamente mais tarde.");
             });
-        });
+        }
     </script>
+
 </body>
 
 </html>
